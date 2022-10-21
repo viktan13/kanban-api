@@ -1,5 +1,5 @@
 function cardGetAll(req, res) {
-    res.send(cards);
+    res.send('Here are the cards');
 }
 
 module.exports = cardGetAll;
