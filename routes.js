@@ -1,3 +1,7 @@
+const cardCreate = require('./cards/cardCreate');
+const cardGetAll = require('./cards/cardGetAll');
+const cardUpdateByID = require('./cards/cardUpdateByID');
+const cardDelete = require('./cards/cardDelete');
 let cards = [
     { id: '1', name: 'First Card', status: 'todo', priority: 2 },
     { id: '2', name: 'Second Card', status: 'progress', priority: 5 },
@@ -9,31 +13,13 @@ function routes(app) {
         res.send('Hello World!');
     });
 
-    app.get('/card', (req, res) => {
-        res.send(cards);
-    });
+    app.get('/card', cardGetAll);
 
-    app.post('/card', (req, res) => {
-        const newCard = req.body;
-        cards.push({ id: Math.random().toString(), ...newCard });
-        res.send('Card created succesfully');
-    });
+    app.post('/card', cardCreate);
 
-    app.patch('/card/:cardId', (req, res) => {
-        const cardID = req.params.cardId;
-        const cardUpdate = req.body;
-        cards = cards.map((el) =>
-            el.id === cardID ? { id: el.id, ...cardUpdate } : el,
-        );
+    app.patch('/card/:cardId', cardUpdateByID);
 
-        res.send('Card updated successfully.');
-    });
-
-    app.delete('/card/:cardId', (req, res) => {
-        const cardID = req.params.cardId;
-        cards = cards.filter((el) => el.id !== cardID);
-        res.send(cards);
-    });
+    app.delete('/card/:cardId', cardDelete);
 }
 
 module.exports = routes;
