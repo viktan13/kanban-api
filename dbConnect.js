@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 const connectionString =
     'mongodb+srv://admin:K72Wsv9cnQ8dCTHA@cluster0.umvyr8v.mongodb.net/kanban?retryWrites=true&w=majority';
-const options = {};
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+};
 
 function dbConnection() {
     mongoose
